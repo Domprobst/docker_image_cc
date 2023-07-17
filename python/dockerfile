@@ -1,0 +1,27 @@
+FROM ubuntu:22.04
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update \
+    && apt-get install -y python3-venv wget sshfs git python3-tk \
+    && useradd -ms /bin/bash cc
+
+# switch user
+USER cc
+WORKDIR /cc
+
+ENV PATH /home/cc/.local/bin:${PATH}
+
+RUN mkdir -p /home/cc/.local/bin
+
+# install connectors
+RUN python3 -m venv /home/cc/.local/red \
+    && . /home/cc/.local/red/bin/activate \
+    && pip install wheel \
+    && pip install red-connector-http==1.0 red-connector-ssh==1.3 red-connector-semcon==2.0 \
+    && pip install tqdm pyedflib h5py mat73 dateparser joblib pytablewriter \
+    && pip install git+https://github.com/skjerns/skjerns-utils \
+    && pip install seaborn pyunisens scikit-learn scipy matplotlib \
+    && ln -s /home/cc/.local/red/bin/red-connector-* /home/cc/.local/bin
+
+

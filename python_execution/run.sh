@@ -13,5 +13,4 @@ shift 2
 . /home/cc/.local/red/bin/activate
 export PYTHONPATH=$PYTHONPATH:$directory/NT1-HRV
 
-python3 "$directory/$python_script" "$@" 2>&1
-echo ""
+python3 "$directory/$python_script" "$@"
