@@ -10,6 +10,8 @@ RUN apt-get update \
 USER cc
 WORKDIR /cc
 
+RUN mkdir -p /cc/outputs/outputs
+
 ENV PATH /home/cc/.local/bin:${PATH}
 
 RUN mkdir -p /home/cc/.local/bin
